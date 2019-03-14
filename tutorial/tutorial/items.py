@@ -8,7 +8,8 @@
 import scrapy
 
 
-class DmozItem(scrapy.Item):
-    title = scrapy.Field()
-    link = scrapy.Field()
-    desc = scrapy.Field()
+class ExItem(scrapy.Item):
+    parody = scrapy.Field()
+    character = scrapy.Field()
+    group = scrapy.Field()
+    artist = scrapy.Field()
