@@ -30,6 +30,7 @@ class ExSpider(scrapy.Spider):
         tags = response.xpath('//div[@id="taglist"]//tr')
 
         for tag in tags:
+            item['url'] = response.url.split('/')[-3] + response.url.split('/')[-2]
             item['parody'] = tag.re('"td_parody.*?"')
             item['character'] = tag.re('"td_character.*?"')
             item['group'] = tag.re('"td_group.*?"')
