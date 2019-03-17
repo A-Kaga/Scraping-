@@ -8,11 +8,11 @@
 
 import json
 import codecs
-import pymysql as pq
+# import pymysql as pq
 
 
 class ExPipeline(object):
-    def __init__(self):
+    """ def __init__(self):
         self.conn = pq.connect(
             host='localhost',
             user='root',
@@ -36,4 +36,22 @@ class ExPipeline(object):
 
     def close_spider(self, spider):
         self.cur.close()
-        self.conn.close()
+        self.conn.close() """
+    
+
+    def __init__(self):
+        self.file = codecs.open('tags.json', 'w', encoding='utf-8')
+    
+
+    def process_item(self, item, spider):
+        line = json.dumps(dict(item), ensure_ascii=False) + "\n"
+        self.file.write(line)
+        return item
+
+
+    def close_spider(self, spider):
+        self.file.close()
+
+
+    def spider_closed(self, spider):
+        self.file.close()
