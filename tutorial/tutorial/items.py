@@ -15,3 +15,4 @@ class ExItem(scrapy.Item):
     character = scrapy.Field()
     group = scrapy.Field()
     artist = scrapy.Field()
+    female = scrapy.Field()
