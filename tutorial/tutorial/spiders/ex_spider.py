@@ -10,19 +10,19 @@ from tutorial.items import ExItem
 class ExSpider(scrapy.Spider):
     name = "ex"
     # allowed_domains = ["dmoz-odp.org"]
-    # start_urls = ["https://e-hentai.org/non-h/"]
-    start_urls = ["https://e-hentai.org/g/1383690/847374c457/"]
+    start_urls = ["https://e-hentai.org/non-h/"]
+    # start_urls = ["https://e-hentai.org/g/1383690/847374c457/"]
 
 
-    # def start_requests(self):
-    #     url = self.start_urls[0]
-    #     yield Request(url, callback=self.get_page, meta={'proxy': 'https://127.0.0.1:1080'})
+    def start_requests(self):
+        url = self.start_urls[0]
+        yield Request(url, callback=self.get_page, meta={'proxy': 'https://127.0.0.1:1080'})
     
 
-    # def get_page(self, response):
-    #     pages = response.xpath('//div[@class="it5"]/a/@href').extract()[0]
-    #     for page in pages:
-    #         yield Request(page, callback=self.parse)
+    def get_page(self, response):
+        pages = response.xpath('//div[@class="it5"]/a/@href').extract()
+        for page in pages:
+            yield Request(page, callback=self.parse)
     
 
     def parse(self, response):
@@ -43,8 +43,8 @@ class ExSpider(scrapy.Spider):
             #item['parody'] = tag.re('"td_parody"')
             yield item
         
-        print("********************")        
-        print("********************")
-        print(item['female'])
-        print("********************")
-        print("********************")
+        # print("********************")        
+        # print("********************")
+        # print(item['female'])
+        # print("********************")
+        # print("********************")
