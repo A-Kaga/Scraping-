@@ -28,9 +28,10 @@ class ExSpider(scrapy.Spider):
         
         self.crawl_count += 1
         if self.crawl_count >= self.max_count:
-            
-        new_url = self.start_urls + str(self.crawl_count)
-        yield Request(new_url, callback=self.get_page, meta={'proxy': 'https://127.0.0.1:1080'})
+            scrapy.exceptions.CloseSpider(reson='已达最大爬取限制')
+        else:
+            new_url = self.start_urls + str(self.crawl_count)
+            yield Request(new_url, callback=self.get_page, meta={'proxy': 'https://127.0.0.1:1080'})
     
 
     def parse(self, response):
