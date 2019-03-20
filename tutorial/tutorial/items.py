@@ -10,6 +10,12 @@ import scrapy
 
 
 class ExItem(scrapy.Item):
+    name = scrapy.Field()
+    posted = scrapy.Field()
+    language = scrapy.Field()
+    rating_counts = scrapy.Field()
+    rating_average = scrapy.Field()
+    favorited = scrapy.Field()
     url = scrapy.Field()
     parody = scrapy.Field()
     character = scrapy.Field()
