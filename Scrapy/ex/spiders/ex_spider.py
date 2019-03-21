@@ -1,15 +1,15 @@
 import scrapy
 import codecs
 import json
+import logging
 from scrapy import Request
 from scrapy.spiders import Spider
 from scrapy.exporters import JsonItemExporter
-from tutorial.items import ExItem
+from ex.items import ExItem
 
 
 class ExSpider(scrapy.Spider):
     name = "ex"
-    # allowed_domains = ["dmoz-odp.org"]
     start_urls = "https://e-hentai.org/non-h/"
     # start_urls = ["https://e-hentai.org/g/1383690/847374c457/"]
     crawl_count = 0
@@ -22,21 +22,21 @@ class ExSpider(scrapy.Spider):
     
 
     def get_page(self, response):
-        pages = response.xpath('//div[@class="it5"]/a/@href').extract()
+        pages = response.xpath('//td[@class="gl3c glname"]/@onclick').extract()
         for page in pages:
-            yield Request(page, callback=self.parse)
+            page_url = page[-44:-3]
+            yield Request(page_url, callback=self.parse)
         
-        self.crawl_count += 1
+        """ self.crawl_count += 1
         if self.crawl_count >= self.max_count:
             scrapy.exceptions.CloseSpider(reson='已达最大爬取限制')
         else:
-            new_url = self.start_urls + str(self.crawl_count)
+            new_url = self.start_urls + str(self.crawl_count) + '/'
             yield Request(new_url, callback=self.get_page, meta={'proxy': 'https://127.0.0.1:1080'})
-    
+     """
 
     def parse(self, response):
         item = ExItem()
-        # name = response.xpath('//title//text()').extract()
         left_table = response.xpath('//*[@id="gdd"]//td/text()').extract()
         tags = response.xpath('//div[@id="taglist"]//tr')
 
@@ -55,9 +55,3 @@ class ExSpider(scrapy.Spider):
             item['artist'] = tag.re('"td_artist.*?"')
             item['female'] = tag.re('"td_female.*?"')
             yield item
-        
-        # print("********************")        
-        # print("********************")
-        # print(item['female'])
-        # print("********************")
-        # print("********************")
