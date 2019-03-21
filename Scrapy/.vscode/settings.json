@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": "E:\\Anaconda\\python.exe",
+    "python.autoComplete.extraPaths": [
+        "C:/Users/dell/AppData/Local/Programs/Python/Python36/Lib/site-packages",
+        "C:/Users/dell/AppData/Local/Programs/Python/Python36/Lib/site-packages/pymysql"
+    ]
+}
